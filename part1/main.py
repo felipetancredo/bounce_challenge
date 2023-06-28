@@ -17,10 +17,15 @@ def extract_repos(user: str, records_per_page: int = 50) -> list:
     page_num = 1
     while True:  # to find all the repos' names from each page, until it finishes
         url = f"https://api.github.com/users/{user}/repos?page={page_num}&per_page={records_per_page}"
-        repo = requests.get(url).json() # without any auth/header because it's not needed in this case (public api)
-        if repo:
-            repos.extend(repo)
-        else:
+        try:
+            repo = requests.get(url).json()  # without any auth/header because it's not needed in this case (public api)
+            if repo:
+                repos.extend(repo)
+            else:
+                break
+        # TODO: we could also check other possible Exception causes and/or HTTP status codes, etc, but due the time, I prefer to keep it simple
+        except Exception as e:
+            print(str(e))
             break
         page_num += 1
     return repos
@@ -49,7 +54,7 @@ if __name__ == "__main__":
 
     # setting the default values
     user = 'bounceapp'
-    records_per_page = 10  # 10 items only to force paging, not needed for few records...
+    records_per_page = 20  # 10 items only to force paging, not needed for few records...
     filepath = 'output.csv'
     separator = ';'
     try:
