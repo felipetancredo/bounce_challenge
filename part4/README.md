@@ -22,7 +22,7 @@ You're free to assume any reasonable constraints or requirements not explicitly 
 
 The initial assumption is that we are going to run the architecture using the Google Cloud Platform. However, the concepts are cloud-agnostic.
 
-The diagram is split into some layers, find them below:
+The diagram is split into some layers. Find them below:
 
 1. **Data Collection/Ingestion Layer:**
    The data basically can arrive in our Data Platform from many different types of sources, formats, latency, etc.
@@ -31,9 +31,9 @@ The diagram is split into some layers, find them below:
    * Manual Files (business teams have some Excel Files, Google Sheets, etc they would like to ingest into our lakehouse):
      * a direct ingestion into our Cloud Storage or if it's a Google sheet, just mapped as an external table directly.
      * If it's an Excel file, we could leverage the capabilities from Airbyte to ingest the files into the Cloud Storage (not explicit in the diagram avoiding many arrows and making the reading difficult)
-   * Event Collectors: Many events that could be collected from our website, or generated for any other source (like IoT devices, for example)
-     * It's possible to collect the events directly using a PUB/SUB pattern for the very beginning, however, I recommend using an Open Source Platform called [Rudderstack](https://www.rudderstack.com/), which provides us with a lot of data collection capabilities combined with some CDP capabilities. They have also a Cloud SaaS solution.
-     * If we are not interested in [Rudderstack](https://www.rudderstack.com/), we could simply use [Google PubSub](https://cloud.google.com/pubsub) to receive those events and store them in our Lakehouse (GCS + BQ) --> Again, not explicit on the diagram to avoid confusion about those options. It's a simple trade-off for making things a simple way to start or having a more robust but more complex platform to handle.
+   * Event Collectors: Every event that should be collected from our website, or generated for any other source (like IoT devices, for example):
+     * It's possible to collect the events directly using a PUB/SUB pattern for the very beginning, however, I recommend using an Open Source Platform called [Rudderstack](https://www.rudderstack.com/), which provides us with a lot of data collection capabilities combined with some CDP capabilities. They also have a Cloud SaaS solution.
+     * If we are not interested in [Rudderstack](https://www.rudderstack.com/), we could simply use [Google PubSub](https://cloud.google.com/pubsub) to receive those events and store them in our Lakehouse (GCS + BQ) --> Again, not explicit on the diagram to avoid confusion about those options. It's a simple trade-off for keeping things simple to start or having a more robust but complex platform to handle.
    * Databases and APIs/Webhooks: SQL/No-SQL databases, APIs, or Webhooks from our internal products, or external partners.
      * For those scenarios I would say that depends a lot on the source, but I'd say that in 80% of the cases we could use the [Airflow](https://airflow.apache.org/) + [Airbyte](https://airbyte.com) combination.
      * [Airflow](https://airflow.apache.org/) can handle the whole orchestration (including the DBT part that we are going to describe better later on) and also, have the flexibility to call other Python scripts running in containers in our environment. Or either, if it's deployed under the KubernetesExecutor, or using the Google SaaS version called Cloud Composer, it's possible to create scripts using Python to collect that data.
