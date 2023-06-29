@@ -10,6 +10,8 @@ We also have a readme file for each question/part in its specific folder.
 
 [part3](https://github.com/felipetancredo/bounce_challenge/blob/main/part3/README.md)
 
+[part4](https://github.com/felipetancredo/bounce_challenge/blob/main/part4/README.md)
+
 PS: Google Bigquery was the selected SQL Engine to execute parts 2 and 3 of this challenge.
 
 If you have any questions about any part of this challenge, please reach me at felipetancredo@gmail.com.
