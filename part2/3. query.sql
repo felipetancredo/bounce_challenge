@@ -56,5 +56,5 @@ select
 from
   sales_past_week
 where
-  rnk <= 3  # 1. the top 3 products only
+  rnk <= 3  -- 1. the top 3 products only
   and category_quantity >= 100  -- 3. filtering out the results for the categories that have total sales of less than 100 units in the past week.
